@@ -27,7 +27,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Nombre:</label>
-                    <input type="text" name="nombre" class="form-control" required value="<?= htmlspecialchars($usuario['nombre']) ?>">
+                    <input type="text" name="nombre" class="form-control" required value="<?=($usuario['nombre']) ?>">
                 </div>
 
                 <div class="mb-3">
@@ -40,12 +40,12 @@
 
                 <div class="mb-3">
                     <label class="form-label">Email:</label>
-                    <input type="email" name="email" class="form-control" required value="<?= htmlspecialchars($usuario['email']) ?>">
+                    <input type="email" name="email" class="form-control" required value="<?=($usuario['email']) ?>">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Cédula:</label>
-                    <input type="text" name="cedula" class="form-control" required value="<?= htmlspecialchars($usuario['cedula'] ?? '') ?>">
+                    <input type="text" name="cedula" class="form-control" required value="<?=($usuario['cedula'] ?? '') ?>">
                 </div>
 
                 <div class="mb-3">
