@@ -22,7 +22,8 @@ if (isset($_GET['cambiar'])) {
 }
 
 // Buscar hoteles con filtros
-$hoteles = $hotel->buscar($_GET);
+$hoteles = $hotel->buscar($_GET['busqueda'] ?? '');
+
 ?>
 
 <!DOCTYPE html>
@@ -38,16 +39,14 @@ $hoteles = $hotel->buscar($_GET);
     <a href="agregarHotel.php" class="btn btn-primary mb-3">➕ Agregar Hotel</a>
 
     <form method="GET" class="row g-3 mb-4">
-        <div class="col-md-4">
-            <input type="text" name="filtro_area" class="form-control" placeholder="Filtrar por área" value="<?= ($_GET['filtro_area'] ?? '') ?>">
-        </div>
-        <div class="col-md-4">
-            <input type="number" name="filtro_precio" class="form-control" placeholder="Filtrar por precio máximo" value="<?= ($_GET['filtro_precio'] ?? '') ?>">
+        <div class="col-md-8">
+            <input type="text" name="busqueda" class="form-control" placeholder="Buscar por provincia, área o costo" value="<?= ($_GET['busqueda'] ?? '') ?>">
         </div>
         <div class="col-md-4">
             <button class="btn btn-secondary" type="submit">Buscar</button>
         </div>
     </form>
+
 
     <table class="table table-bordered">
         <thead>

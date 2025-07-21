@@ -87,29 +87,32 @@ class Hotel {
 
 
 
-    public function darDeBaja($id) {
-        $stmt = $this->pdo->prepare("UPDATE hoteles SET activo = 0 WHERE id = ?");
-        return $stmt->execute([$id]);
-    }
-
-    public function buscar($filtros = []) {
+    public function buscar($busqueda = '') {
         $sql = "SELECT * FROM hoteles WHERE 1=1";
         $param = [];
 
-        if (!empty($filtros['filtro_area'])) {
-            $sql .= " AND ubicacion LIKE ?";
-            $param[] = "%" . $filtros['filtro_area'] . "%";
-        }
+        if (!empty($busqueda)) {
+            $sql .= " AND (
+                provincia LIKE ? 
+                OR ubicacion LIKE ? 
+                OR costo <= ?
+            )";
+            $param[] = "%$busqueda%"; // Para provincia
+            $param[] = "%$busqueda%"; // Para área/ubicación
 
-        if (!empty($filtros['filtro_precio'])) {
-            $sql .= " AND costo <= ?";
-            $param[] = $filtros['filtro_precio'];
+            // Si el valor ingresado es numérico, lo usamos para costo
+            if (is_numeric($busqueda)) {
+                $param[] = $busqueda;
+            } else {
+                $param[] = 0; // Si no es número, evita filtrar por costo
+            }
         }
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($param);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function obtenerPublicados() {
     $stmt = $this->pdo->prepare("
